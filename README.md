@@ -1,3 +1,4 @@
+
 # CSPC Lab A
 
 ## PW1 — Lab A
@@ -27,3 +28,26 @@ Speed-up:       12872.26x
 The NumPy version was much faster because it does not loop through every atom in Python.
 ## Conclusion
 In this lab, I learned how to create and use a Conda environment, work with NumPy, write tests with pytest, use Git and GitHub, and compare the performance of two different implementations and also saw in practice how vectorised NumPy operations can make a big difference in performance compared with a pure Python loop.
+---
+
+## PW1 — Lab B: Data, Plotting, and Automation
+
+**What I built:**
+
+- I worked with the observed radioactive decay data from `decay_observed.csv` and used NumPy to read the data and build the analytical decay curve.
+- I created `plot.py` to show the observed data and the analytical law in two side-by-side plots, and created a `Snakefile` to automate the generation of `figure.png`.
+
+**Result:**
+
+- The observed count decreased over time and showed an approximately exponential decay pattern.
+- The observed data matched the analytical decay law reasonably well, although the points did not match the curve exactly.
+
+**Snakemake:**
+
+- The Snakemake pipeline uses `decay_observed.csv` as input and runs `plot.py` to create `figure.png`.
+- It rebuilds the figure when the input or code changes and does nothing when everything is already up to date.
+
+**Conclusion:**
+
+- I learned how to work with real observation data and compare it with an analytical model using NumPy and Matplotlib.
+- I also learned how Snakemake can automate a simple data analysis workflow and avoid running steps that do not need to be repeated.
