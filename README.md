@@ -51,3 +51,20 @@ In this lab, I learned how to create and use a Conda environment, work with NumP
 
 - I learned how to work with real observation data and compare it with an analytical model using NumPy and Matplotlib.
 - I also learned how Snakemake can automate a simple data analysis workflow and avoid running steps that do not need to be repeated.
+
+
+
+
+---
+
+## PW2 --- Lab A: Motion from Tracking Data
+
+**Data.** `freefall.csv` contains the measured height (m) of an object dropped from about 500 m, sampled every 0.1 s. Velocity and acceleration were computed with `np.gradient` (once and twice), and then integrated back with `cumulative_trapezoid`.
+
+**Measured mean acceleration.** The mean acceleration was −8.58 m/s², somewhat different from the expected −9.81 m/s². The mean of a double derivative depends mostly on the noisy values at the ends of the record. A quadratic fit to the whole position curve gives g ≈ 9.80 m/s², so the data are consistent with free fall.
+
+**Why the acceleration is noisy.** The acceleration is much noisier than the position because each derivative divides the difference of neighbouring noisy values by the small time step (0.1 s), so differentiating twice amplifies the noise by a large factor, while the true signal (a constant −9.81 m/s²) stays the same. The standard deviation of the acceleration was 28.7 m/s².
+
+**What integrating back showed.** Integrating the noisy acceleration twice recovered the position to within 0.78 m of the original (over a ~500 m drop), because integration is a sum in which random noise largely cancels, the opposite of differentiation, which amplifies it.
+
+**Figure.** `PW2/Lab A/motion.png` shows three stacked panels sharing the time axis: a smooth position, a slightly rough velocity, and a very noisy acceleration around the dashed −9.81 m/s² line.
