@@ -28,6 +28,10 @@ Speed-up:       12872.26x
 The NumPy version was much faster because it does not loop through every atom in Python.
 ## Conclusion
 In this lab, I learned how to create and use a Conda environment, work with NumPy, write tests with pytest, use Git and GitHub, and compare the performance of two different implementations and also saw in practice how vectorised NumPy operations can make a big difference in performance compared with a pure Python loop.
+
+
+
+
 ---
 
 ## PW1 — Lab B: Data, Plotting, and Automation
@@ -68,3 +72,55 @@ In this lab, I learned how to create and use a Conda environment, work with NumP
 **What integrating back showed.** Integrating the noisy acceleration twice recovered the position to within 0.78 m of the original (over a ~500 m drop), because integration is a sum in which random noise largely cancels, the opposite of differentiation, which amplifies it.
 
 **Figure.** `PW2/Lab A/motion.png` shows three stacked panels sharing the time axis: a smooth position, a slightly rough velocity, and a very noisy acceleration around the dashed −9.81 m/s² line.
+
+
+
+
+
+## PW2 --- Lab B
+
+### Part 2: comparing the three methods
+
+**2A: f(x) = (x-3)^2 + 1.** This one was easy. Gradient descent, Newton and
+SLSQP all ended up at x ≈ 3 (f ≈ 1), so I couldn't see any real difference
+between them.
+
+**2B: g(x) = x^4 - 3x^2 + x + 5.** Here the methods did not agree.
+- Starting from x0 = 0, gradient descent and SLSQP went to the global minimum
+  at x ≈ -1.30 (g ≈ 1.486). Newton, however, stopped at x ≈ 0.17. I checked
+  g'' there and it is negative, so that point is a maximum, not a minimum.
+- Starting from x0 = 2, Newton found the local minimum at x ≈ 1.13
+  (g'' > 0, g ≈ 3.93). Gradient descent and SLSQP still went to the global
+  minimum at x ≈ -1.30.
+
+What I learned: Newton's method only solves g'(x) = 0, so it can stop at any
+stationary point, and I have to look at the sign of g'' to know whether it is
+a minimum or a maximum. The starting point also decides which stationary
+point we reach. So on a complicated function both the algorithm and the
+starting point matter.
+
+### Part 3: fitting the reaction rate
+
+I fitted the first-order model C(t) = C0 * exp(-k t) to the data, with C0 =
+104.08 (the first measurement). The fitted rate constant is k ≈ 0.262, with a
+minimum squared error of about 266. This is close to the expected value of
+0.25; the small difference is probably due to the noise in the measurements
+(including the noise in C0). The fitted curve goes through the data points
+(kinetics.png).
+
+### Part 4: chemical equilibrium
+
+For H2 + I2 <=> 2 HI with K = 15.6, starting from 1 mol of each reactant, I
+solved for the extent x in two ways. Newton's root-finding gave x = 0.66385
+and SLSQP (minimising k_imbalance^2) gave x = 0.66385 as well; they differ
+only by about 2e-7, so the two methods agree.
+
+At equilibrium: H2 = 0.336 mol, I2 = 0.336 mol, HI = 1.328 mol. To check, I
+put these amounts back into the formula and got K = 15.6 again
+(equilibrium.png).
+
+### Part 5 (bonus): titration equivalence point
+
+I computed the slope of the pH curve with np.gradient and looked for its
+maximum. The slope peaks at 4.0 pH/mL at V = 50.0 mL, where pH = 7.0, so the
+equivalence point is at 50.0 mL (titration.png).
