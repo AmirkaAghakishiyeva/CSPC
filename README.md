@@ -124,3 +124,22 @@ put these amounts back into the formula and got K = 15.6 again
 I computed the slope of the pH curve with np.gradient and looked for its
 maximum. The slope peaks at 4.0 pH/mL at V = 50.0 mL, where pH = 7.0, so the
 equivalence point is at 50.0 mL (titration.png).
+
+## PW3-- Sessions 1&2
+# Data, Distributions, Testing, and Causation
+
+## 1. Heart Disease Dataset
+I analysed the Cleveland Heart Disease dataset with 303 observations. I focused on age, cholesterol (`chol`), resting blood pressure (`trestbps`), and maximum heart rate (`thalach`).
+The dataset is available on Kaggle(https://www.kaggle.com/datasets/ritwikb3/heart-disease-cleveland).I used histograms,Q-Q plots,and the Shapiro-Wilk test to check the distributions. All four variables had p-values below 0.05,so there was evidence against normality.Cholesterol also had a long right tail and a high maximum value of 564.
+
+## 2. Comparing Groups
+I compared maximum heart rate between people with and without heart disease.The mean was 139.26 for the disease group and 158.38 for the healthy group.
+I used the Mann-Whitney U test because the normality tests indicated non-normal distributions.The p-value was extremely small, showing a statistically significant difference between the groups.I also checked the relationship between age and maximum heart rate.Both Pearson and Spearman correlations were around -0.39,showing a moderate negative relationship.In this dataset,older people tended to have lower maximum heart rates.
+
+## 3. Chemicals and Malignancy
+In the initial analysis,cadmium had a stronger correlation with malignancy (0.880) than benzene (0.385). At first, cadmium seemed to be more strongly associated with malignancy.
+I then selected observations with a pollution index between 40 and 60.After this,the benzene correlation increased to 0.698,while the cadmium correlation decreased to 0.313.
+This showed me that the relationship between variables can change when we account for another factor.However,correlation alone is not enough to prove which chemical actually causes malignancy.
+
+## 4. Conclusion
+The entropy of the heart disease target was 0.995 bits,showing that the two classes were relatively balanced.Overall,this practical work helped me understand how to explore data, compare groups,and interpret correlations.The main thing i learned is that a strong correlation does not automatically mean causation,and other factors can change the results.
